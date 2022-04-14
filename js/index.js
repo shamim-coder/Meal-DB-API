@@ -24,8 +24,8 @@ const loadIngredient = (data) => {
 };
 
 const handleSearchMeals = () => {
-    const spinner = document.getElementById("spinner");
-    spinner.classList.remove("d-none");
+    document.getElementById("spinner").style.display = "block";
+
     const searchKey = document.getElementById("search-meal");
     const mealsContainer = document.getElementById("meals-container");
     const mealContainer = document.getElementById("meal-container");
@@ -42,13 +42,12 @@ getIngredient();
 
 const getResultCount = (meals, ingredients) => {
     console.log(meals);
-    document.getElementById("meals-total").innerText = meals = 0 ? 0 : meals;
-    document.getElementById("ingredients-total").innerText = ingredients = 0 ? 0 : ingredients;
+    document.getElementById("meals-total").innerText = meals;
+    document.getElementById("ingredients-total").innerText = ingredients;
 };
 
 const getMeals = (meals) => {
-    const spinner = document.getElementById("spinner");
-    spinner.classList.add("d-none");
+    document.getElementById("spinner").style.display = "none";
     const mealsContainer = document.getElementById("meals-container");
     if (meals == null) {
         getResultCount(0, 0);
@@ -81,16 +80,14 @@ const getMeals = (meals) => {
 };
 
 const loadMealDetails = async (id) => {
-    const spinner = document.getElementById("spinner");
-    spinner.classList.remove("d-none");
+    document.getElementById("spinner").style.display = "block";
     const api = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const response = await fetch(api);
     await response.json().then((data) => getMealDetails(data.meals[0]));
 };
 
 const getMealDetails = (meal) => {
-    const spinner = document.getElementById("spinner");
-    spinner.classList.add("d-none");
+    document.getElementById("spinner").style.display = "none";
     const mealContainer = document.getElementById("meal-container");
     mealContainer.innerHTML = "";
     const mealDetails = document.createElement("div");
