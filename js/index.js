@@ -41,37 +41,43 @@ handleSearchMeals();
 getIngredient();
 
 const getResultCount = (meals, ingredients) => {
-    document.getElementById("meals-total").innerText = meals;
-    document.getElementById("ingredients-total").innerText = ingredients;
+    console.log(meals);
+    document.getElementById("meals-total").innerText = meals = 0 ? 0 : meals;
+    document.getElementById("ingredients-total").innerText = ingredients = 0 ? 0 : ingredients;
 };
 
 const getMeals = (meals) => {
     const spinner = document.getElementById("spinner");
     spinner.classList.add("d-none");
     const mealsContainer = document.getElementById("meals-container");
-    const first8Meals = meals.slice(0, 12);
-    const ingredient = [];
-
-    first8Meals.forEach((meal) => {
-        for (let i = 1; i < 20; i++) {
-            if (meal["strIngredient" + i]) {
-                ingredient.push(meal["strIngredient" + i]);
+    if (meals == null) {
+        getResultCount(0, 0);
+        document.getElementById("meals-title").innerText = "Meals Not Found";
+    } else {
+        document.getElementById("meals-title").innerText = "Popular Meals";
+        const first8Meals = meals.slice(0, 12);
+        const ingredient = [];
+        first8Meals.forEach((meal) => {
+            for (let i = 1; i < 20; i++) {
+                if (meal["strIngredient" + i]) {
+                    ingredient.push(meal["strIngredient" + i]);
+                }
             }
-        }
 
-        const { strMeal, strMealThumb, idMeal } = meal;
-        const mealDiv = document.createElement("div");
-        mealDiv.classList.add("col", "text-center");
-        mealDiv.innerHTML = `
+            const { strMeal, strMealThumb, idMeal } = meal;
+            const mealDiv = document.createElement("div");
+            mealDiv.classList.add("col", "text-center");
+            mealDiv.innerHTML = `
             <div onclick="loadMealDetails(${idMeal})" className="div">
                 <img class="img-fluid" src="${strMealThumb}" alt="lime" />
                 <h5 class="mt-3">${strMeal}</h5>
             </div>
         `;
 
-        mealsContainer.appendChild(mealDiv);
-    });
-    getResultCount(meals.length, ingredient.length);
+            mealsContainer.appendChild(mealDiv);
+        });
+        getResultCount(meals.length, ingredient.length);
+    }
 };
 
 const loadMealDetails = async (id) => {
