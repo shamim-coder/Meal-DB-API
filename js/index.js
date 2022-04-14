@@ -18,7 +18,7 @@ const loadIngredient = (data) => {
         col.classList.add("col", "text-center");
         col.innerHTML = `
         <img class="img-fluid" src="https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png" alt="lime" />
-        <p>${ingredient.strIngredient}</p>`;
+        <h5 class="mt-3">${ingredient.strIngredient}</h5>`;
         ingredientsContainer.appendChild(col);
     });
 };
@@ -65,7 +65,7 @@ const getMeals = (meals) => {
         mealDiv.innerHTML = `
             <div onclick="loadMealDetails(${idMeal})" className="div">
                 <img class="img-fluid" src="${strMealThumb}" alt="lime" />
-                <p class="text-decoration-none">${strMeal}</p>
+                <h5 class="mt-3">${strMeal}</h5>
             </div>
         `;
 
@@ -117,16 +117,16 @@ const getMealDetails = (meal) => {
             </div>
         </div>
         
-        <div class="col-lg-12 mt-2 mb-5">
-            <h3 class="text-center my-4">Ingredient Measuring</h3>
-            <ol class="list-group list-group-numbered m-auto w-50">
+        <div class="col-lg-6 mt-2 mb-5">
+            <h3 class="text-center mb-4">Ingredient Measuring</h3>
+            <ol class="list-group list-group-numbered m-auto">
             ${ingredientWithMeasure.map((ingWithMsr) => `<li class="list-group-item bg-transparent">${ingWithMsr}</li>`).join("")}
             </ol>
         </div>
         
-        <div class="col-lg-12 mt-2 mb-5">
+        <div class="col-lg-6 mt-2 mb-5">
             <h3 class="text-center mb-4">Instructions</h3>
-            <p class="instructions w-50 m-auto text-center">${strInstructions}</p>
+            <p class="instructions m-auto text-center">${strInstructions}</p>
         </div>
         `;
 
