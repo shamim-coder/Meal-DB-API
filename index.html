@@ -11,7 +11,7 @@
     <body class="bg-warning bg-opacity-50">
         <header class="bg-danger bg-opacity-75 text-white pb-2 mb-5">
             <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light">
+                <nav class="navbar navbar-expand-lg navbar-dark">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <a class="navbar-brand me-auto" href="#">
                             <img src="https://www.themealdb.com/images/logo-small.png" alt="" />
@@ -41,7 +41,7 @@
                         </ul>
                         <form class="d-flex">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button class="btn btn-outline-success" type="submit">Search</button>
+                            <button class="btn btn-warning" type="submit">Search</button>
                         </form>
                     </div>
                 </nav>
@@ -49,8 +49,8 @@
             <section>
                 <div class="container">
                     <div class="d-flex justify-content-center mt-5 mb-4">
-                        <input id="search-meal" class="form-control w-25 me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button onclick="handleSearchMeals()" class="btn btn-outline-success" type="submit">Search</button>
+                        <input id="search-meal" class="form-control w-25 me-2" type="search" placeholder="Search for a Meal.." aria-label="Search" />
+                        <button onclick="handleSearchMeals()" class="btn btn-warning" type="submit">Search</button>
                     </div>
                     <div class="search-result d-flex justify-content-center mb-4">
                         <h4 class="mx-4">Total Meals: <span id="meals-total">0</span></h4>

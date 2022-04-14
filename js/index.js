@@ -16,7 +16,6 @@ const loadIngredient = (data) => {
     sliceData.forEach((ingredient) => {
         const col = document.createElement("div");
         col.classList.add("col", "text-center");
-        console.log(ingredient.strIngredient);
         col.innerHTML = `
         <img class="img-fluid" src="https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png" alt="lime" />
         <p>Chivito uruguayo</p>`;
@@ -83,7 +82,7 @@ const getMealDetails = (meal) => {
     const mealDetails = document.createElement("div");
     mealDetails.classList.add("row");
 
-    const { strMeal, strMealThumb, strTags, strArea } = meal;
+    const { strMeal, strMealThumb, strTags, strArea, strInstructions } = meal;
     const ingredient = [];
     for (let i = 1; i < 20; i++) {
         if (meal["strIngredient" + i]) {
@@ -108,7 +107,12 @@ const getMealDetails = (meal) => {
                     })
                     .join("")}
             </div>
-        </div>`;
+        </div>
+        <div class="col-lg-12 mt-2 mb-5">
+            <h3 class="text-center mb-4">Instructions</h3>
+            <p class="instructions w-50 m-auto text-center">${strInstructions}</p>
+        </div>
+        `;
 
     mealContainer.appendChild(mealDetails);
 };
