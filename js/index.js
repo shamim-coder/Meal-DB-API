@@ -107,17 +107,21 @@ const getMealDetails = (meal) => {
         <div class="col-lg-6">
             <h3 class="text-center mb-4">${strMeal}</h3>
             <img class="img-fluid" src="${strMealThumb}" alt="${strMeal}" />
-            <p>Tags: ${strTags}</p>
+            <p class="mt-4">Tags: ${strTags}</p>
             <p>Country: ${strArea}</p>
-            <ol class="list-group list-group-numbered">
-               ${ingredientWithMeasure.map((ingWithMsr) => `<li class="list-group-item bg-transparent">${ingWithMsr}</li>`).join("")}
-            </ol>
         </div>
         <div class="col-lg-6">
             <h3 class="text-center mb-4">Ingredients</h3>
             <div id="ingredients-container" class="row row-cols-4 g-5">
                 ${ingredientName.map((ing) => `<div class="col text-center"><img src="https://www.themealdb.com/images/ingredients/${ing}-Small.png" alt="" /> <p>${ing}</p> </div> `).join("")}
             </div>
+        </div>
+        
+        <div class="col-lg-12 mt-2 mb-5">
+            <h3 class="text-center my-4">Ingredient Measuring</h3>
+            <ol class="list-group list-group-numbered m-auto w-50">
+            ${ingredientWithMeasure.map((ingWithMsr) => `<li class="list-group-item bg-transparent">${ingWithMsr}</li>`).join("")}
+            </ol>
         </div>
         
         <div class="col-lg-12 mt-2 mb-5">
