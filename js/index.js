@@ -18,12 +18,14 @@ const loadIngredient = (data) => {
         col.classList.add("col", "text-center");
         col.innerHTML = `
         <img class="img-fluid" src="https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png" alt="lime" />
-        <p>Chivito uruguayo</p>`;
+        <p>${ingredient.strIngredient}</p>`;
         ingredientsContainer.appendChild(col);
     });
 };
 
 const handleSearchMeals = () => {
+    const spinner = document.getElementById("spinner");
+    spinner.classList.remove("d-none");
     const searchKey = document.getElementById("search-meal");
     const mealsContainer = document.getElementById("meals-container");
     const mealContainer = document.getElementById("meal-container");
@@ -44,6 +46,8 @@ const getResultCount = (meals, ingredients) => {
 };
 
 const getMeals = (meals) => {
+    const spinner = document.getElementById("spinner");
+    spinner.classList.add("d-none");
     const mealsContainer = document.getElementById("meals-container");
     const first8Meals = meals.slice(0, 12);
     const ingredient = [];
@@ -71,43 +75,51 @@ const getMeals = (meals) => {
 };
 
 const loadMealDetails = async (id) => {
+    const spinner = document.getElementById("spinner");
+    spinner.classList.remove("d-none");
     const api = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const response = await fetch(api);
     await response.json().then((data) => getMealDetails(data.meals[0]));
 };
 
 const getMealDetails = (meal) => {
+    const spinner = document.getElementById("spinner");
+    spinner.classList.add("d-none");
     const mealContainer = document.getElementById("meal-container");
     mealContainer.innerHTML = "";
     const mealDetails = document.createElement("div");
     mealDetails.classList.add("row");
 
     const { strMeal, strMealThumb, strTags, strArea, strInstructions } = meal;
-    const ingredient = [];
+    const ingredientWithMeasure = [];
+    const ingredientName = [];
     for (let i = 1; i < 20; i++) {
         if (meal["strIngredient" + i]) {
-            ingredient.push(meal["strIngredient" + i]);
+            ingredientName.push(meal["strIngredient" + i]);
         }
     }
-
+    for (let i = 1; i < 20; i++) {
+        if (meal["strIngredient" + i] && meal["strMeasure" + i]) {
+            ingredientWithMeasure.push(meal["strMeasure" + i] + " " + meal["strIngredient" + i]);
+        }
+    }
     mealDetails.innerHTML = `
         <div class="col-lg-6">
             <h3 class="text-center mb-4">${strMeal}</h3>
             <img class="img-fluid" src="${strMealThumb}" alt="${strMeal}" />
             <p>Tags: ${strTags}</p>
             <p>Country: ${strArea}</p>
+            <ol class="list-group list-group-numbered">
+               ${ingredientWithMeasure.map((ingWithMsr) => `<li class="list-group-item bg-transparent">${ingWithMsr}</li>`).join("")}
+            </ol>
         </div>
         <div class="col-lg-6">
             <h3 class="text-center mb-4">Ingredients</h3>
             <div id="ingredients-container" class="row row-cols-4 g-5">
-                ${ingredient
-                    .map((ing) => {
-                        return `<div class="col text-center"><img src="https://www.themealdb.com/images/ingredients/${ing}-Small.png" alt="" /> 
-                        <p>${ing}</p></div>`;
-                    })
-                    .join("")}
+                ${ingredientName.map((ing) => `<div class="col text-center"><img src="https://www.themealdb.com/images/ingredients/${ing}-Small.png" alt="" /> <p>${ing}</p> </div> `).join("")}
             </div>
         </div>
+        
         <div class="col-lg-12 mt-2 mb-5">
             <h3 class="text-center mb-4">Instructions</h3>
             <p class="instructions w-50 m-auto text-center">${strInstructions}</p>
